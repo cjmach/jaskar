@@ -65,6 +65,11 @@ public class EncryptedBuffer extends Structure implements Closeable {
         return null;
     }
     
+    /**
+     * Gets the ciphertext.
+     * 
+     * @return 
+     */
     public byte[] getCiphertext() {
         byte[] bytes = getBytes();
         if (bytes == null) {
@@ -74,6 +79,11 @@ public class EncryptedBuffer extends Structure implements Closeable {
         return ciphertext;
     }
     
+    /**
+     * Gets the nonce.
+     * 
+     * @return 
+     */
     public byte[] getNonce() {
         byte[] bytes = getBytes();
         if (bytes == null) {
@@ -83,6 +93,11 @@ public class EncryptedBuffer extends Structure implements Closeable {
         return nonce;
     }
     
+    /**
+     * Gets the authentication tag.
+     * 
+     * @return 
+     */
     public byte[] getTag() {
         byte[] bytes = getBytes();
         if (bytes == null) {
