@@ -45,6 +45,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Perform AEAD message decryption with this encryption key.
      * 
      * @param cipherText
      * @param nonce
@@ -64,6 +65,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Perform AEAD message encryption with this encryption key.
      * 
      * @param message
      * @param nonce
@@ -93,6 +95,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Map this key or keypair to its equivalent for another key algorithm.
      * 
      * @param algorithm
      * @return
@@ -110,6 +113,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Derive a new key from a Diffie-Hellman exchange between this keypair and a public key.
      * 
      * @param algorithm
      * @param publicKey
@@ -128,6 +132,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Fetch the AEAD parameter lengths.
      * 
      * @return
      * @throws AskarException 
@@ -142,6 +147,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Create a new random nonce for AEAD message encryption.
      * 
      * @return
      * @throws AskarException 
@@ -158,6 +164,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Gets the key algorithm.
      * 
      * @return
      * @throws AskarException 
@@ -176,6 +183,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Get the JWK thumbprint for this key or keypair.
      * 
      * @return
      * @throws AskarException 
@@ -194,6 +202,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Export the raw bytes of the public key.
      * 
      * @return
      * @throws AskarException 
@@ -210,6 +219,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Get the public JWK representation for this key or keypair.
      * 
      * @return
      * @throws AskarException 
@@ -228,6 +238,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Export the raw bytes of the private key.
      * 
      * @return
      * @throws AskarException 
@@ -244,6 +255,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Get the JWK representation for this private key or keypair.
      * 
      * @return
      * @throws AskarException 
@@ -275,6 +287,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Sign a message with this private signing key.
      * 
      * @param message
      * @param algorithm
@@ -293,6 +306,7 @@ public class Key implements Closeable {
     }
     
     /**
+     * Unwrap a key using this key.
      * 
      * @param algorithm
      * @param cipherText
@@ -317,6 +331,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Verify a message signature with this private signing key or public verification key.
      * 
      * @param message
      * @param signature
@@ -337,6 +352,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Wrap another key using this key.
      * 
      * @param other
      * @param nonce
@@ -355,7 +371,8 @@ public class Key implements Closeable {
     }
 
     /**
-     * Only ECDSA and EdDSA based JWKs are supported. Example:
+     * Import a key or keypair from a JWK. Only ECDSA and EdDSA based JWKs are 
+     * supported. Example:
      * <pre>
      * {
      *   "kty": "EC",
@@ -375,10 +392,12 @@ public class Key implements Closeable {
     }
 
     /**
-     * 
+     * Import a key or keypair from a JWK in binary format. Only ECDSA and EdDSA 
+     * based JWKs are supported.
+     *
      * @param jwk
      * @return
-     * @throws AskarException 
+     * @throws AskarException
      */
     public static Key fromJwk(byte[] jwk) throws AskarException {
         try (ByteBuffer.ByValue buffer = new ByteBuffer.ByValue(jwk)) {
@@ -394,6 +413,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Import a public key from its compact representation.
      * 
      * @param algorithm
      * @param publicKey
@@ -414,6 +434,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Import a symmetric key or public-private keypair from its compact representation.
      * 
      * @param algorithm
      * @param secretKey
@@ -434,6 +455,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Create a new deterministic key or keypair.
      * 
      * @param method
      * @param algorithm
@@ -455,6 +477,7 @@ public class Key implements Closeable {
     }
 
     /**
+     * Create a new random key or keypair.
      * 
      * @param algorithm
      * @param backend

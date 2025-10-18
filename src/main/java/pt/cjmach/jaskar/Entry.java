@@ -24,7 +24,8 @@ import pt.cjmach.jaskar.lib.ErrorCode;
 import pt.cjmach.jaskar.lib.SecretBuffer;
 
 /**
- *
+ * A record in the store.
+ * 
  * @author cmachado
  */
 public class Entry implements Closeable {
@@ -54,6 +55,7 @@ public class Entry implements Closeable {
     }
 
     /**
+     * Gets the category of the entry record.
      * 
      * @return
      * @throws AskarException 
@@ -71,6 +73,7 @@ public class Entry implements Closeable {
     }
 
     /**
+     * Gets the name of the entry record, unique within its category.
      * 
      * @return
      * @throws AskarException 
@@ -102,6 +105,7 @@ public class Entry implements Closeable {
     }
 
     /**
+     * Gets the tags associated with the entry record.
      * 
      * @return
      * @throws AskarException 
@@ -119,6 +123,7 @@ public class Entry implements Closeable {
     }
 
     /**
+     * Gets the value of the entry record.
      * 
      * @return
      * @throws AskarException 

@@ -16,23 +16,24 @@
 package pt.cjmach.jaskar.lib;
 
 /**
- *
+ * Supported operations for entries in the store.
+ * 
  * @author cmachado
  */
 public enum EntryOperation {
 
     /**
-     *
+     * Insert a new {@link pt.cjmach.jaskar.Entry}.
      */
     INSERT((byte) 0),
 
     /**
-     *
+     * Replace an existing {@link pt.cjmach.jaskar.Entry}.
      */
     REPLACE((byte) 1),
 
     /**
-     *
+     * Replace an existing {@link pt.cjmach.jaskar.Entry}.
      */
     REMOVE((byte) 2);
     

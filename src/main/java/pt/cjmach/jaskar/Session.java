@@ -27,7 +27,8 @@ import pt.cjmach.jaskar.lib.ErrorCode;
 import pt.cjmach.jaskar.lib.SizeT;
 
 /**
- *
+ * An active connection to the store backend.
+ * 
  * @author cmachado
  */
 public class Session implements Closeable {
@@ -81,6 +82,7 @@ public class Session implements Closeable {
     }
     
     /**
+     * Commit the pending transaction.
      * 
      * @throws AskarException 
      */
@@ -93,6 +95,7 @@ public class Session implements Closeable {
     }
     
     /**
+     * Count the number of entries for a given record category.
      * 
      * @param category
      * @param tagFilter
@@ -118,10 +121,11 @@ public class Session implements Closeable {
     }
 
     /**
+     * Retrieve the current record at '(category, name)'.
      * 
      * @param category
      * @param name
-     * @param forUpdate
+     * @param forUpdate Set to {@code true} when in a transaction to create an update lock on the associated record, if supported by the store backend.
      * @return
      * @throws AskarException 
      */
@@ -148,6 +152,9 @@ public class Session implements Closeable {
     }
 
     /**
+     * Retrieve all records matching the given 'category' and 'tagFilter'. Unlike 
+     * {@link Store#scanStart(java.lang.String, java.lang.String, java.lang.String, long, long, java.lang.String, boolean)}, 
+     * this method may be used within a transaction. It should not be used for very large result sets due to correspondingly large memory requirements.
      * 
      * @param category
      * @param tagFilter
@@ -184,6 +191,7 @@ public class Session implements Closeable {
     }
     
     /**
+     * Retrieve all keys matching the given filters.
      * 
      * @param algorithm
      * @param thumbprint
@@ -214,9 +222,10 @@ public class Session implements Closeable {
     }
     
     /**
+     * Fetch an existing key from the store.
      * 
      * @param name
-     * @param forUpdate
+     * @param forUpdate Set to {@code true} when in a transaction to create an update lock on the associated record, if supported by the store backend.
      * @return
      * @throws AskarException 
      */
@@ -242,6 +251,7 @@ public class Session implements Closeable {
     }
 
     /**
+     * Insert a new record into the store.
      * 
      * @param category
      * @param name
@@ -272,6 +282,7 @@ public class Session implements Closeable {
     }
     
     /**
+     * Insert a local key instance into the store.
      * 
      * @param key
      * @param name
@@ -299,6 +310,7 @@ public class Session implements Closeable {
     }
 
     /**
+     * Remove a record from the store.
      * 
      * @param category
      * @param name
@@ -324,7 +336,7 @@ public class Session implements Closeable {
     }
 
     /**
-     * 
+     * Remove all records in the store matching a given 'category' and 'tagFilter'.
      * @param category
      * @param tagFilter
      * @return
@@ -349,7 +361,7 @@ public class Session implements Closeable {
     }
     
     /**
-     * 
+     * Remove an existing key from the store.
      * @param name
      * @param expiryMs
      * @throws AskarException 
@@ -370,6 +382,7 @@ public class Session implements Closeable {
     }
 
     /**
+     * Replace the value and tags of a record in the store.
      * 
      * @param category
      * @param name
@@ -400,7 +413,8 @@ public class Session implements Closeable {
     }
     
     /**
-     *
+     * Roll back the pending transaction.
+     * 
      * @throws AskarException
      */
     public void rollback() throws AskarException {
@@ -412,7 +426,8 @@ public class Session implements Closeable {
     }
     
     /**
-     *
+     * Replace the metadata and tags on an existing key in the store.
+     * 
      * @param name
      * @param metaData
      * @param tags

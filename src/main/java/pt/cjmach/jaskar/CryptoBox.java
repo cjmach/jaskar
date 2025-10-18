@@ -27,12 +27,13 @@ import pt.cjmach.jaskar.lib.SecretBuffer;
 public final class CryptoBox {
 
     /**
-     * 
+     * Prevent the creation of CryptoBox objects.
      */
     private CryptoBox() {
     }
 
     /**
+     * Encrypt a message with crypto_box and a detached nonce.
      * 
      * @param recipientKey
      * @param senderKey
@@ -53,6 +54,7 @@ public final class CryptoBox {
     }
     
     /**
+     * Decrypt a message with crypto_box and a detached nonce.
      * 
      * @param recipientKey
      * @param senderKey
@@ -73,6 +75,7 @@ public final class CryptoBox {
     }
     
     /**
+     * Generate a new random nonce for {@link #cryptoBox(pt.cjmach.jaskar.Key, pt.cjmach.jaskar.Key, byte[], byte[])} method.
      * 
      * @return
      * @throws AskarException 
@@ -89,6 +92,7 @@ public final class CryptoBox {
     }
     
     /**
+     * Perform message encryption equivalent to libsodium's 'crypto_box_seal'.
      * 
      * @param key
      * @param message
@@ -107,6 +111,7 @@ public final class CryptoBox {
     }
     
     /**
+     * Perform message decryption equivalent to libsodium's 'crypto_box_seal_open'.
      * 
      * @param key
      * @param ciphertext

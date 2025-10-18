@@ -23,7 +23,8 @@ import pt.cjmach.jaskar.lib.ErrorCode;
 import pt.cjmach.jaskar.lib.SizeT;
 
 /**
- *
+ * An active record scan of a store backend.
+ * 
  * @author cmachado
  */
 public class Scan implements Closeable {
@@ -49,6 +50,7 @@ public class Scan implements Closeable {
     }
     
     /**
+     * Fetch the next set of result rows.
      * 
      * @return
      * @throws AskarException 

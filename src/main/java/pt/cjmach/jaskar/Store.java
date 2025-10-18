@@ -29,7 +29,8 @@ import pt.cjmach.jaskar.lib.ErrorCode;
 import pt.cjmach.jaskar.lib.SizeT;
 
 /**
- *
+ * An instance of an opened store.
+ * 
  * @author cmachado
  */
 public class Store implements Closeable {
@@ -48,6 +49,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Close the store instance, waiting for any shutdown procedures to complete.
      * 
      * @throws IOException 
      */
@@ -61,6 +63,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Close the store instance, waiting for any shutdown procedures to complete.
      * 
      * @param alsoRemove
      * @return
@@ -84,6 +87,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Copy to a new store instance using a database URL.
      * 
      * @param toStore
      * @param fromProfile
@@ -107,6 +111,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Copy to a new store instance using a database URL.
      * 
      * @param uri
      * @param method
@@ -134,6 +139,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Create a new profile with the given profile name.
      * 
      * @param name
      * @return
@@ -156,6 +162,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Get the default profile name used when opening the store.
      * 
      * @return
      * @throws AskarException 
@@ -176,6 +183,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Get the database URL of this store.
      * 
      * @return 
      */
@@ -184,6 +192,7 @@ public class Store implements Closeable {
     }
 
     /**
+     * Get the details of all store profiles.
      * 
      * @return
      * @throws AskarException 
@@ -209,7 +218,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Create a new session against the store.
+     * 
      * @return
      * @throws AskarException
      */
@@ -218,7 +228,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Create a new session against the store.
+     * 
      * @param isTransaction
      * @return
      * @throws AskarException
@@ -228,7 +239,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Create a new session against the store.
+     * 
      * @param profile
      * @param isTransaction
      * @return
@@ -251,7 +263,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Replace the wrapping key on a store.
+     * 
      * @param method
      * @param passKey
      * @throws AskarException
@@ -270,7 +283,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Remove an existing profile with the given profile namestore.
+     * 
      * @param name
      * @return
      * @throws AskarException
@@ -292,7 +306,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Change the name of an existing profile.
+     * 
      * @param oldName
      * @param newName
      * @return
@@ -316,7 +331,8 @@ public class Store implements Closeable {
     }
     
     /**
-     *
+     * Create a new scan instance against the store.
+     * 
      * @param profile
      * @param category
      * @param tagFilter
@@ -324,7 +340,7 @@ public class Store implements Closeable {
      * @param limit
      * @param orderBy
      * @param descending
-     * @return
+     * @return a new {@link Scan} instance. The result will keep an open connection to the backend until it is consumed.
      * @throws AskarException
      */
     public Scan scanStart(String profile, String category, String tagFilter, long offset, long limit, String orderBy, boolean descending) throws AskarException {
@@ -344,7 +360,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Set the default profile name used when opening the store.
+     * 
      * @param name
      * @throws AskarException
      */
@@ -363,7 +380,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Generate a new raw store key.
+     * 
      * @param seed
      * @return
      * @throws AskarException
@@ -383,7 +401,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Open a store instance from a database URL.
+     * 
      * @param specUri
      * @param keyMethod
      * @param passKey
@@ -411,7 +430,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Provision a new store instance using a database URL.
+     * 
      * @param specUri
      * @param keyMethod
      * @param passKey
@@ -440,7 +460,8 @@ public class Store implements Closeable {
     }
 
     /**
-     *
+     * Remove a store instance using a database URL.
+     * 
      * @param uri
      * @return
      * @throws AskarException

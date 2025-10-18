@@ -22,19 +22,22 @@ import com.sun.jna.Structure.FieldOrder;
 import java.io.Closeable;
 
 /**
- *
+ * Structure consistent with ffi_support ByteBuffer, but zeroized on drop.
+ * 
  * @author cmachado
  */
 @FieldOrder({"len", "data"})
 public class SecretBuffer extends Structure implements Closeable {
 
     /**
-     *
+     * must be >= 0, signed int was chosen for compatibility.
+     * 
      */
     public long len;
 
     /**
-     *
+     * nullable.
+     * 
      */
     public Pointer data;
     

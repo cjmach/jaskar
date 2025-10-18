@@ -20,53 +20,54 @@ import com.sun.jna.ToNativeContext;
 import com.sun.jna.TypeConverter;
 
 /**
- *
+ * The possible kinds of error produced by the library.
+ * 
  * @author cmachado
  */
 public enum ErrorCode {
 
     /**
-     *
+     * 
      */
     SUCCESS(0),
 
     /**
-     *
+     * An unexpected error from the store backend.
      */
     BACKEND(1),
 
     /**
-     *
+     * The store backend was too busy to handle the request.
      */
     BUSY(2),
 
     /**
-     *
+     * An insert operation failed due to a unique key conflict.
      */
     DUPLICATE(3),
 
     /**
-     *
+     * An encryption or decryption operation failed.
      */
     ENCRYPTION(4),
 
     /**
-     *
+     * The input parameters to the method were incorrect.
      */
     INPUT(5),
 
     /**
-     *
+     * The requested record was not found.
      */
     NOT_FOUND(6),
 
     /**
-     *
+     * An unexpected error occurred.
      */
     UNEXPECTED(7),
 
     /**
-     *
+     * An unsupported operation was requested.
      */
     UNSUPPORTED(8),
 

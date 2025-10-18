@@ -20,7 +20,8 @@ import com.sun.jna.Structure.FieldOrder;
 import java.io.Closeable;
 
 /**
- *
+ * A combined ciphertext and tag value. Represents the result of an AEAD encryption operation.
+ * 
  * @author cmachado
  */
 @FieldOrder({"buffer", "tag_pos", "nonce_pos"})

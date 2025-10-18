@@ -23,7 +23,8 @@ import pt.cjmach.jaskar.lib.AskarLibrary;
 import pt.cjmach.jaskar.lib.ErrorCode;
 
 /**
- *
+ * A stored key entry.
+ * 
  * @author cmachado
  */
 public class KeyEntry implements Closeable {
@@ -53,6 +54,7 @@ public class KeyEntry implements Closeable {
     }
 
     /**
+     * Gets the key algorithm.
      * 
      * @return
      * @throws AskarException 
@@ -70,6 +72,7 @@ public class KeyEntry implements Closeable {
     }
     
     /**
+     * Gets the stored key metadata.
      * 
      * @return
      * @throws AskarException 
@@ -87,6 +90,7 @@ public class KeyEntry implements Closeable {
     }
 
     /**
+     * Gets the key entry identifier.
      * 
      * @return
      * @throws AskarException 
@@ -104,6 +108,7 @@ public class KeyEntry implements Closeable {
     }
     
     /**
+     * Gets the key tags.
      * 
      * @return
      * @throws AskarException 
