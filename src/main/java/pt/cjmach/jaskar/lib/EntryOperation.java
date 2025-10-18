@@ -15,6 +15,10 @@
  */
 package pt.cjmach.jaskar.lib;
 
+import com.sun.jna.FromNativeContext;
+import com.sun.jna.ToNativeContext;
+import com.sun.jna.TypeConverter;
+
 /**
  * Supported operations for entries in the store.
  * 
@@ -47,7 +51,40 @@ public enum EntryOperation {
      *
      * @return
      */
-    public byte getOperation() {
+    byte getOperation() {
         return operation;
+    }
+    
+    static EntryOperation fromOperation(byte operation) {
+        switch (operation) {
+            case (byte) 0:
+                return INSERT;
+            case (byte) 1:
+                return REPLACE;
+            case (byte) 2:
+                return REMOVE;
+            default:
+                throw new IllegalArgumentException("Illegal operation " + operation);
+        }
+    }
+    
+    static class Converter implements TypeConverter {
+
+        @Override
+        public Object fromNative(Object nativeValue, FromNativeContext context) {
+            byte value = (byte) nativeValue;
+            return fromOperation(value);
+        }
+
+        @Override
+        public Class<?> nativeType() {
+            return Byte.class;
+        }
+
+        @Override
+        public Object toNative(Object value, ToNativeContext context) {
+            return ((EntryOperation) value).getOperation();
+        }
+        
     }
 }

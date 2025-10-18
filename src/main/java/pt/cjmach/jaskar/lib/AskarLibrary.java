@@ -44,6 +44,7 @@ public class AskarLibrary {
 
     static {
         DefaultTypeMapper typeMapper = new DefaultTypeMapper();
+        typeMapper.addTypeConverter(EntryOperation.class, new EntryOperation.Converter());
         typeMapper.addTypeConverter(ErrorCode.class, new ErrorCode.Converter());
 
         Map<String, Object> options = new HashMap<>();
@@ -718,7 +719,7 @@ public class AskarLibrary {
      * @return
      */
     public static native ErrorCode askar_session_update(SizeT handle,
-            byte operation, String category, String name, ByteBuffer.ByValue value,
+            EntryOperation operation, String category, String name, ByteBuffer.ByValue value,
             String tags, long expiry_ms, BasicCallback cb, long cb_id);
 
     /**

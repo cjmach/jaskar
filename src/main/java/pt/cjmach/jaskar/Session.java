@@ -268,7 +268,7 @@ public class Session implements Closeable {
         try (ByteBuffer.ByValue buffer = new ByteBuffer.ByValue(value)) {
             AskarCallback.Basic callback = new AskarCallback.Basic();
             ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
-                    EntryOperation.INSERT.getOperation(), category, name, buffer,
+                    EntryOperation.INSERT, category, name, buffer,
                     tags, expiryMs, callback, callback.getId());
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
@@ -323,7 +323,7 @@ public class Session implements Closeable {
 
         AskarCallback.Basic callback = new AskarCallback.Basic();
         ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
-                EntryOperation.REMOVE.getOperation(), category, name, null, null, 0,
+                EntryOperation.REMOVE, category, name, null, null, 0,
                 callback, callback.getId());
         if (errorCode != ErrorCode.SUCCESS) {
             throw new AskarException();
@@ -399,7 +399,7 @@ public class Session implements Closeable {
         try (ByteBuffer.ByValue buffer = new ByteBuffer.ByValue(value)) {
             AskarCallback.Basic callback = new AskarCallback.Basic();
             ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
-                    EntryOperation.REPLACE.getOperation(), category, name, buffer,
+                    EntryOperation.REPLACE, category, name, buffer,
                     tags, expiryMs, callback, callback.getId());
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
