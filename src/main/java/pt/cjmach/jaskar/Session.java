@@ -264,7 +264,6 @@ public class Session implements Closeable {
         Objects.requireNonNull(handle, "Cannot insert with a closed session.");
         Objects.requireNonNull(category);
         Objects.requireNonNull(name);
-        Objects.requireNonNull(tags);
         try (ByteBuffer.ByValue buffer = new ByteBuffer.ByValue(value)) {
             AskarCallback.Basic callback = new AskarCallback.Basic();
             ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
@@ -295,7 +294,6 @@ public class Session implements Closeable {
         Objects.requireNonNull(handle, "Cannot insert key with a closed session.");
         Objects.requireNonNull(name);
         Objects.requireNonNull(metadata);
-        Objects.requireNonNull(tags);
         AskarCallback.Basic callback = new AskarCallback.Basic();
         ErrorCode errorCode = AskarLibrary.askar_session_insert_key(handle, key.handle, 
                 name, metadata, tags, expiryMs, callback, callback.getId());
@@ -395,7 +393,6 @@ public class Session implements Closeable {
         Objects.requireNonNull(handle, "Cannot replace with a closed session.");
         Objects.requireNonNull(category);
         Objects.requireNonNull(name);
-        Objects.requireNonNull(tags);
         try (ByteBuffer.ByValue buffer = new ByteBuffer.ByValue(value)) {
             AskarCallback.Basic callback = new AskarCallback.Basic();
             ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
@@ -438,7 +435,6 @@ public class Session implements Closeable {
         Objects.requireNonNull(handle, "Cannot update with a closed session.");
         Objects.requireNonNull(name);
         Objects.requireNonNull(metaData);
-        Objects.requireNonNull(tags);
         AskarCallback.Basic callback = new AskarCallback.Basic();
         ErrorCode errorCode = AskarLibrary.askar_session_update_key(handle, name, metaData, tags, expiryMs, callback, callback.getId());
         if (errorCode != ErrorCode.SUCCESS) {
