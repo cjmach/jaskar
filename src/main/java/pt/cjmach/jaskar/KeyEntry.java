@@ -124,4 +124,15 @@ public class KeyEntry implements Closeable {
         Native.free(Pointer.nativeValue(p));
         return tags;
     }
+    
+    public Key loadLocal() throws AskarException {
+        PointerByReference out = new PointerByReference();
+        ErrorCode errorCode = AskarLibrary.askar_key_entry_list_load_local(handle, position, out);
+        if (errorCode != ErrorCode.SUCCESS) {
+            throw new AskarException();
+        }
+        Pointer p = out.getValue();
+        Key key = new Key(p);
+        return key;
+    }
 }
