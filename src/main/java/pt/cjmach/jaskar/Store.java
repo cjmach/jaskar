@@ -414,7 +414,6 @@ public class Store implements Closeable {
         Objects.requireNonNull(specUri);
         Objects.requireNonNull(keyMethod);
         Objects.requireNonNull(passKey);
-        Objects.requireNonNull(profile);
         AskarCallback.SizeT callback = new AskarCallback.SizeT();
         ErrorCode errorCode = AskarLibrary.askar_store_open(specUri, keyMethod.getMethod(), passKey, profile, callback, callback.getId());
         if (errorCode != ErrorCode.SUCCESS) {
@@ -444,7 +443,6 @@ public class Store implements Closeable {
         Objects.requireNonNull(specUri);
         Objects.requireNonNull(keyMethod);
         Objects.requireNonNull(passKey);
-        Objects.requireNonNull(profile);
         AskarCallback.SizeT callback = new AskarCallback.SizeT();
         ErrorCode errorCode = AskarLibrary.askar_store_provision(specUri, keyMethod.getMethod(), passKey, profile, (byte) (recreate ? 1 : 0), callback, callback.getId());
         if (errorCode != ErrorCode.SUCCESS) {
