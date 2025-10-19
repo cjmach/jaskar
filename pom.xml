@@ -11,6 +11,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
+        
+        <askar.version>v0.4.5</askar.version>
+        <askar.releases.url>https://github.com/openwallet-foundation/askar/releases/download</askar.releases.url>
+        
+        <download.plugin.version>2.0.0</download.plugin.version>
     </properties>
     
     <scm>
@@ -41,6 +46,65 @@
     
     <build>
         <plugins>
+            <plugin>
+                <groupId>io.github.download-maven-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>${download.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>askar (linux x86_64)</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>${askar.releases.url}/${askar.version}/library-linux-x86_64.tar.gz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.basedir}/src/main/resources/linux-x86-64</outputDirectory>
+                            <sha256>c65a77b119b997c405aea82e49b000a5b921a46f51cdb0d2cde19c2d81d87780</sha256>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>askar (linux aarch64)</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>${askar.releases.url}/${askar.version}/library-linux-aarch64.tar.gz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.basedir}/src/main/resources/linux-arm</outputDirectory>
+                            <sha256>6efa3d45da7ebd1f33bf2a2a0f592b390df8fe1bc396a48484c2a974f39edd3c</sha256>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>askar (darwin universal)</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>${askar.releases.url}/${askar.version}/library-darwin-universal.tar.gz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.basedir}/src/main/resources/darwin-x86-64</outputDirectory>
+                            <sha256>5dcddda9fe0cab44e5483d9c9b382b805398c48bdb2fd6b4daf47489f550f7a1</sha256>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>askar (windows x86_64)</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>${askar.releases.url}/${askar.version}/library-windows-x86_64.tar.gz</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.basedir}/src/main/resources/windows-x86-64</outputDirectory>
+                            <sha256>f116dac4e0bebea5ee45d81f5523d9a4fbe8576906b101601b322957f7dc4824</sha256>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

@@ -4,6 +4,10 @@
 !**/src/test/**
 /target/
 /lib/
+/src/main/resources/linux-x86-64/
+/src/main/resources/linux-arm/
+/src/main/resources/darwin-x86-64/
+/src/main/resources/windows-x86-64/
 
 ### STS ###
 **/.apt_generated
