@@ -120,7 +120,7 @@ public class Store implements Closeable {
      * @return
      * @throws AskarException 
      */
-    public long copyTo(String uri, StoreKeyMethod method, String passKey, boolean recreate) throws AskarException {
+    public Store copyTo(String uri, StoreKeyMethod method, String passKey, boolean recreate) throws AskarException {
         Objects.requireNonNull(uri);
         Objects.requireNonNull(method);
         Objects.requireNonNull(passKey);
@@ -131,8 +131,8 @@ public class Store implements Closeable {
         }
         try {
             callback.await();
-            SizeT size = callback.getSizeT();
-            return size.longValue();
+            SizeT storeHandle = callback.getSizeT();
+            return new Store(storeHandle, uri);
         } catch (InterruptedException ex) {
             throw new AskarException(ex);
         }
