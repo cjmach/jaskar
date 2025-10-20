@@ -74,7 +74,7 @@
                 <executions>
                     <execution>
                         <id>askar (linux x86_64)</id>
-                        <phase>process-resources</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
@@ -87,7 +87,7 @@
                     </execution>
                     <execution>
                         <id>askar (linux aarch64)</id>
-                        <phase>process-resources</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
@@ -100,7 +100,7 @@
                     </execution>
                     <execution>
                         <id>askar (darwin universal)</id>
-                        <phase>process-resources</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
@@ -113,7 +113,7 @@
                     </execution>
                     <execution>
                         <id>askar (windows x86_64)</id>
-                        <phase>process-resources</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
