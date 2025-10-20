@@ -24,3 +24,11 @@ jobs:
         
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+  build-complete:
+    runs-on: ubuntu-latest
+    needs: ["build"]
+    if: ${{ always() && contains(needs.*.result, 'failure') }}
+    steps: 
+      - name: list target contents
+        run: ls -R ./target
+      
