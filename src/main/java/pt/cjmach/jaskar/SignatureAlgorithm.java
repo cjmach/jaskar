@@ -16,7 +16,8 @@
 package pt.cjmach.jaskar;
 
 /**
- *
+ * An algorithm used for signing and verification.
+ * 
  * @author cmachado
  */
 public enum SignatureAlgorithm {
@@ -27,17 +28,17 @@ public enum SignatureAlgorithm {
     EDDSA("eddsa"),
 
     /**
-     *
+     * Gets an ECDSA with a P-256 curve SignatureAlgorithm as described in https://tools.ietf.org/html/rfc7518.
      */
     ES256("es256"),
 
     /**
-     *
+     * Gets an ECDSA with a secp256k1 curve SignatureAlgorithm as described in https://tools.ietf.org/html/rfc7518.
      */
     ES256K("es256k"),
 
     /**
-     *
+     * Gets an ECDSA with a P-384 curve SignatureAlgorithm as described in https://tools.ietf.org/html/rfc7518.
      */
     ES384("es384");
     
