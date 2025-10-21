@@ -295,8 +295,16 @@ public class Key implements Closeable {
      * @throws AskarException 
      */
     public byte[] signMessage(byte[] message, SignatureAlgorithm algorithm) throws AskarException {
+        return signMessage(message, algorithm.getAlgorithm());
+    }
+    
+    public byte[] signMessage(byte[] message) throws AskarException {
+        return signMessage(message, (String) null);
+    }
+    
+    private byte[] signMessage(byte[] message, String algorithm) throws AskarException {
         try (SecretBuffer out = new SecretBuffer(); ByteBuffer.ByValue messageBuffer = new ByteBuffer.ByValue(message)) {
-            ErrorCode errorCode = AskarLibrary.askar_key_sign_message(handle, messageBuffer, algorithm.getAlgorithm(), out);
+            ErrorCode errorCode = AskarLibrary.askar_key_sign_message(handle, messageBuffer, algorithm, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
@@ -340,9 +348,17 @@ public class Key implements Closeable {
      * @throws AskarException 
      */
     public boolean verifySignature(byte[] message, byte[] signature, SignatureAlgorithm algorithm) throws AskarException {
+        return verifySignature(message, signature, algorithm.getAlgorithm());
+    }
+    
+    public boolean verifySignature(byte[] message, byte[] signature) throws AskarException {
+        return verifySignature(message, signature, (String) null);
+    }
+    
+    private boolean verifySignature(byte[] message, byte[] signature, String algorithm) throws AskarException {
         try (ByteBuffer.ByValue messageBuffer = new ByteBuffer.ByValue(message); ByteBuffer.ByValue signatureBuffer = new ByteBuffer.ByValue(signature)) {
             ByteByReference out = new ByteByReference();
-            ErrorCode errorCode = AskarLibrary.askar_key_verify_signature(handle, messageBuffer, signatureBuffer, algorithm.getAlgorithm(), out);
+            ErrorCode errorCode = AskarLibrary.askar_key_verify_signature(handle, messageBuffer, signatureBuffer, algorithm, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
@@ -486,8 +502,16 @@ public class Key implements Closeable {
      * @throws AskarException 
      */
     public static Key generate(KeyAlgorithm algorithm, KeyBackend backend, boolean ephemeral) throws AskarException {
+        return generate(algorithm, backend.getBackend(), ephemeral);
+    }
+    
+    public static Key generate(KeyAlgorithm algorithm, boolean ephemeral) throws AskarException {
+        return generate(algorithm, (String) null, ephemeral);
+    }
+    
+    private static Key generate(KeyAlgorithm algorithm, String backend, boolean ephemeral) throws AskarException {
         PointerByReference out = new PointerByReference();
-        ErrorCode errorCode = AskarLibrary.askar_key_generate(algorithm.getAlgorithm(), backend.getBackend(), (byte) (ephemeral ? 1 : 0), out);
+        ErrorCode errorCode = AskarLibrary.askar_key_generate(algorithm.getAlgorithm(), backend, (byte) (ephemeral ? 1 : 0), out);
         if (errorCode != ErrorCode.SUCCESS) {
             throw new AskarException();
         }
