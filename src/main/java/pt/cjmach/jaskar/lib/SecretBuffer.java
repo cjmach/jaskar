@@ -58,7 +58,7 @@ public class SecretBuffer extends Structure implements Closeable {
      */
     public byte[] getBytes() {
         byte[] bytes = new byte[(int) len];
-        data.read(len, bytes, 0, bytes.length);
+        data.read(0, bytes, 0, bytes.length);
         return bytes;
     }
 
