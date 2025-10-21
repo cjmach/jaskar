@@ -15,6 +15,7 @@
  */
 package pt.cjmach.jaskar;
 
+import java.util.Arrays;
 import pt.cjmach.jaskar.lib.EncryptedBuffer;
 
 /**
@@ -27,31 +28,23 @@ public class WrappedKey {
     private final int noncePosition;
 
     WrappedKey(EncryptedBuffer encryptedBuffer) {
-        this.data = new byte[(int) encryptedBuffer.buffer.len];
+        this.data = encryptedBuffer.buffer.getBytes();
         this.tagPosition = (int) encryptedBuffer.tag_pos;
         this.noncePosition = (int) encryptedBuffer.nonce_pos;
     }
     
+    public byte[] getCiphertext() {
+        byte[] ciphertext = Arrays.copyOfRange(data, 0, tagPosition);
+        return ciphertext;
+    }
     
-
-    /**
-     * @return the data
-     */
-    public byte[] getData() {
-        return (byte[]) data.clone();
+    public byte[] getNonce() {
+        byte[] nonce = Arrays.copyOfRange(data, noncePosition, data.length);
+        return nonce;
     }
-
-    /**
-     * @return the tagPosition
-     */
-    public int getTagPosition() {
-        return tagPosition;
-    }
-
-    /**
-     * @return the noncePosition
-     */
-    public int getNoncePosition() {
-        return noncePosition;
+    
+    public byte[] getTag() {
+        byte[] tag = Arrays.copyOfRange(data, tagPosition, noncePosition);
+        return tag;
     }
 }
