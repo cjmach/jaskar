@@ -77,12 +77,12 @@ public class ByteBuffer extends Structure implements Closeable {
      */
     @Override
     public void close() {
-        if (data != Pointer.NULL) {
-            Native.free(Pointer.nativeValue(data));
-            data = Pointer.NULL;
-            len = 0;
-            write();
-        }
+//        if (data != Pointer.NULL) {
+//            Native.free(Pointer.nativeValue(data));
+//            data = Pointer.NULL;
+//            len = 0;
+//            write();
+//        }
     }
     
     /**
