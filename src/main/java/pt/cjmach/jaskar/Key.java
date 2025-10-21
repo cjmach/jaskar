@@ -337,6 +337,10 @@ public class Key implements Closeable {
             return key;
         }
     }
+    
+    public Key unwrapKey(KeyAlgorithm algorithm, WrappedKey wrapped) throws AskarException {
+        return unwrapKey(algorithm, wrapped.getCiphertext(), wrapped.getNonce(), wrapped.getTag());
+    }
 
     /**
      * Verify a message signature with this private signing key or public verification key.
