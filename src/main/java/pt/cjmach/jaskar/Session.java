@@ -104,8 +104,6 @@ public class Session implements Closeable {
      */
     public long count(String category, String tagFilter) throws AskarException {
         Objects.requireNonNull(handle, "Cannot count from a closed session.");
-        Objects.requireNonNull(category);
-        Objects.requireNonNull(tagFilter);
         AskarCallback.Long callback = new AskarCallback.Long();
         ErrorCode errorCode = AskarLibrary.askar_session_count(handle, category, tagFilter, callback, callback.getId());
         if (errorCode != ErrorCode.SUCCESS) {
