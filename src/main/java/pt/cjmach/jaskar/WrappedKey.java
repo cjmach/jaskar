@@ -19,7 +19,8 @@ import java.util.Arrays;
 import pt.cjmach.jaskar.lib.EncryptedBuffer;
 
 /**
- *
+ * The result of an AEAD encryption operation.
+ * 
  * @author cmachado
  */
 public class WrappedKey {
@@ -33,16 +34,31 @@ public class WrappedKey {
         this.noncePosition = (int) encryptedBuffer.nonce_pos;
     }
     
+    /**
+     * Gets the ciphertext.
+     * 
+     * @return 
+     */
     public byte[] getCiphertext() {
         byte[] ciphertext = Arrays.copyOfRange(data, 0, tagPosition);
         return ciphertext;
     }
     
+    /**
+     * Gets the nonce.
+     * 
+     * @return 
+     */
     public byte[] getNonce() {
         byte[] nonce = Arrays.copyOfRange(data, noncePosition, data.length);
         return nonce;
     }
     
+    /**
+     * Gets the authentication tag.
+     * 
+     * @return 
+     */
     public byte[] getTag() {
         byte[] tag = Arrays.copyOfRange(data, tagPosition, noncePosition);
         return tag;
