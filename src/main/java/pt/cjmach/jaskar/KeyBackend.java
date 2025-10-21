@@ -52,7 +52,7 @@ public enum KeyBackend {
      */
     static KeyBackend fromBackend(String backend) {
         switch (backend) {
-            case "sofware":
+            case "software":
                 return KeyBackend.SOFTWARE;
             case "secure_element":
                 return KeyBackend.SECURE_ELEMENT;
