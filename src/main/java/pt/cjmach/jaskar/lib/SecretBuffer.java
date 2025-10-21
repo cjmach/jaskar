@@ -49,6 +49,8 @@ public class SecretBuffer extends Structure implements Closeable {
         if (data != Pointer.NULL) {
             Native.free(Pointer.nativeValue(data));
             data = Pointer.NULL;
+            len = 0;
+            write();
         }
     }
     
