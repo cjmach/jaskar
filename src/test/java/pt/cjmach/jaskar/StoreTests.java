@@ -16,7 +16,9 @@
 package pt.cjmach.jaskar;
 
 import java.io.IOException;
+import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pt.cjmach.jaskar.lib.AskarLibrary;
 
@@ -25,13 +27,36 @@ import pt.cjmach.jaskar.lib.AskarLibrary;
  * @author cmachado
  */
 public class StoreTests {
+    private Store store;
+    
+    @BeforeEach
+    public void setupAskar() throws AskarException {
+        String passKey = Store.generateRawKey();
+        store = Store.provision("sqlite://:memory:", StoreKeyMethod.RAW, passKey, null, true);
+    }
+    
+    @AfterEach
+    public void closeAskar() throws AskarException {
+        store.close(true);
+    }
+    
+    @Test
+    public void givenOpenStore_whenInserting_thenCountIsIncremented() {
+        try (Session session = store.openSession()) {
+            long count = session.count("testcat", null);
+            session.insert("testcat", "testentry", "{\"tag\":\"a\"}", "test".getBytes(AskarLibrary.DEFAULT_CHARSET), -1);
+            long newCount = session.count("testcat", null);
+            assertEquals(count + 1, newCount);
+        } catch (AskarException | IOException ex) {
+            fail(ex);
+        }
+    }
 
     @Test
     public void givenOpenStore_whenInsertingAndFetchingKey_thenKeysAreEqual() {
         try {
-            String passKey = Store.generateRawKey();
-            Key keyPair = Key.generate(KeyAlgorithm.ED25519, KeyBackend.SOFTWARE, false);
-            try (Store db = Store.provision("sqlite://:memory:", StoreKeyMethod.RAW, passKey, null, true); Session conn = db.openSession()) {
+            Key keyPair = Key.generate(KeyAlgorithm.ED25519, false);
+            try (Session conn = store.openSession()) {
 
                 String keyName = "testkey";
                 String metaData = "meta";
@@ -57,13 +82,28 @@ public class StoreTests {
             fail(ex);
         }
     }
+    
+    @Test
+    public void givenOpenStore_whenRemoving_thenCountIsDecremented() {
+        try (Session session = store.openSession()) {
+            long countInitial = session.count("testcat", null);
+            session.insert("testcat", "testentry", "{\"tag\":\"a\"}", "test".getBytes(AskarLibrary.DEFAULT_CHARSET), -1);
+            long countAfterInsert = session.count("testcat", null);
+            assertEquals(countInitial + 1, countAfterInsert);
+            
+            session.remove("testcat", "testentry");
+            long countAfterRemove = session.count("testcat", null);
+            assertEquals(countInitial, countAfterRemove);
+        } catch (AskarException | IOException ex) {
+            fail(ex);
+        }
+    }
 
     @Test
     public void givenOpenStore_whenCopyingToAnotherStore_thenCopiedKeysAreEqual() {
         try {
-            String passKey = Store.generateRawKey();
             Key keyPair = Key.generate(KeyAlgorithm.ED25519, false);
-            try (Store db = Store.provision("sqlite://:memory:", StoreKeyMethod.RAW, passKey, null, true); Session conn = db.openSession()) {
+            try (Session conn = store.openSession()) {
 
                 String keyName = "testkey";
                 String metaData = "meta";
@@ -80,7 +120,7 @@ public class StoreTests {
                 // is probably not correct, but it's passing and the code from 
                 // https://github.com/openwallet-foundation/askar/blob/main/tests/store_copy.rs
                 // works the same way.
-                try (Store dbCopy = db.copyTo("sqlite://:memory:", StoreKeyMethod.RAW, passKeyCopy, true); Session connCopy = dbCopy.openSession()) {
+                try (Store dbCopy = store.copyTo("sqlite://:memory:", StoreKeyMethod.RAW, passKeyCopy, true); Session connCopy = dbCopy.openSession()) {
 
                     KeyEntry foundKey = connCopy.fetchKey(keyName, false);
                     try {

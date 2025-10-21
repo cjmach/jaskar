@@ -24,25 +24,36 @@ import pt.cjmach.jaskar.lib.AskarLibrary;
  * @author cmachado
  */
 public class KeyTests {
-    
+
+    @Test
+    public void givenSupportedBackends_whenInspecting_thenIncludesSoftware() {
+        try {
+            KeyBackend[] backends = Key.getSupportedBackends();
+            assertEquals(1, backends.length);
+            assertEquals(KeyBackend.SOFTWARE, backends[0]);
+        } catch (AskarException ex) {
+            fail(ex);
+        }
+    }
+
     @Test
     public void givenValidKey_whenSigningMessage_thenVerifiesSignature() {
         try (Key keyPair = Key.generate(KeyAlgorithm.EC_SECP_256R1, false)) {
             byte[] message = "message".getBytes(AskarLibrary.DEFAULT_CHARSET);
             byte[] signature = keyPair.signMessage(message);
             assertTrue(keyPair.verifySignature(message, signature), "Error verifying signature");
-            
+
             byte[] badInput = "bad input".getBytes(AskarLibrary.DEFAULT_CHARSET);
             assertFalse(keyPair.verifySignature(badInput, signature));
-            
+
             byte[] badSignature = "bad signature".getBytes(AskarLibrary.DEFAULT_CHARSET);
             assertFalse(keyPair.verifySignature(message, badSignature));
-            
+
             Throwable cause = assertThrows(AskarException.class, () -> keyPair.verifySignature(message, signature, SignatureAlgorithm.ES384));
             assertNotNull(cause);
         } catch (AskarException ex) {
             fail(ex);
         }
-        
+
     }
 }
