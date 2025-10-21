@@ -18,7 +18,6 @@ package pt.cjmach.jaskar.lib;
 import com.sun.jna.Structure;
 import com.sun.jna.Structure.FieldOrder;
 import java.io.Closeable;
-import java.util.Arrays;
 
 /**
  * A combined ciphertext and tag value. Represents the result of an AEAD encryption operation.
@@ -52,58 +51,5 @@ public class EncryptedBuffer extends Structure implements Closeable {
             buffer.close();
             buffer = null;
         }
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public byte[] getBytes() {
-        if (buffer != null) {
-            return buffer.getBytes();
-        }
-        return null;
-    }
-    
-    /**
-     * Gets the ciphertext.
-     * 
-     * @return 
-     */
-    public byte[] getCiphertext() {
-        byte[] bytes = getBytes();
-        if (bytes == null) {
-            return null;
-        }
-        byte[] ciphertext = Arrays.copyOfRange(bytes, 0, (int) tag_pos);
-        return ciphertext;
-    }
-    
-    /**
-     * Gets the nonce.
-     * 
-     * @return 
-     */
-    public byte[] getNonce() {
-        byte[] bytes = getBytes();
-        if (bytes == null) {
-            return null;
-        }
-        byte[] nonce = Arrays.copyOfRange(bytes, (int) nonce_pos, bytes.length - 1);
-        return nonce;
-    }
-    
-    /**
-     * Gets the authentication tag.
-     * 
-     * @return 
-     */
-    public byte[] getTag() {
-        byte[] bytes = getBytes();
-        if (bytes == null) {
-            return null;
-        }
-        byte[] tag = Arrays.copyOfRange(bytes, (int) tag_pos, (int) nonce_pos);
-        return tag;
     }
 }

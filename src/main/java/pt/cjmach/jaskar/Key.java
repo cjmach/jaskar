@@ -79,7 +79,7 @@ public class Key implements Closeable {
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
-            return out.getBytes();
+            return out.buffer.getBytes();
         }
     }
 
