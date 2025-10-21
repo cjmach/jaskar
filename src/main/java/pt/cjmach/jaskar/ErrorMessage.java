@@ -45,7 +45,7 @@ final class ErrorMessage {
         }
         Pointer p = out.getValue();
         String jsonMessage = p.getString(0, AskarLibrary.DEFAULT_CHARSET.name());
-        Native.free(Pointer.nativeValue(p));
+        // Native.free(Pointer.nativeValue(p));
 
         ObjectMapper mapper = new JsonMapper();
         try {
