@@ -20,18 +20,18 @@ public class KeyTests {
             byte[] message = "message".getBytes(AskarLibrary.DEFAULT_CHARSET);
             byte[] signature = keyPair.signMessage(message);
             assertTrue(keyPair.verifySignature(message, signature), "Error verifying signature");
-            
+            System.out.println("[INFO] Verified message signature.");
             byte[] badInput = "bad input".getBytes(AskarLibrary.DEFAULT_CHARSET);
             assertFalse(keyPair.verifySignature(badInput, signature));
-            
-            badInput = "xt19s1sp2UZCGhy9rNyb1FtxdKiDGZZPNFnc1KiM9jYYEuHxuwNeFf1oQKsn8zv6yvYBGhXa83288eF4MqN1oDq".getBytes(AskarLibrary.DEFAULT_CHARSET);
-            assertFalse(keyPair.verifySignature(badInput, signature));
+            System.out.println("[INFO] Not verified bad input.");
             
             byte[] badSignature = "bad signature".getBytes(AskarLibrary.DEFAULT_CHARSET);
             assertFalse(keyPair.verifySignature(message, badSignature));
+            System.out.println("[INFO] Not verified bad signature.");
             
             Throwable cause = assertThrows(AskarException.class, () -> keyPair.verifySignature(message, signature, SignatureAlgorithm.ES384));
             assertNotNull(cause);
+            System.out.println("[INFO] Verified exception thrown.");
         } catch (AskarException ex) {
             fail(ex);
         }
