@@ -15,6 +15,9 @@
  */
 package pt.cjmach.jaskar;
 
+import java.security.SecureRandom;
+import java.util.Random;
+import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import pt.cjmach.jaskar.lib.AskarLibrary;
@@ -54,6 +57,19 @@ public class KeyTests {
         } catch (AskarException ex) {
             fail(ex);
         }
-
+    }
+    
+    @Test
+    public void givenValidKey_whenWrappingKey_thenUnwrappedKeyIsEqual() {
+        try (Key key = Key.generate(KeyAlgorithm.AES_A256_GCM, true); Key other = Key.generate(KeyAlgorithm.ED25519, true)) {
+            byte[] nonce = new byte[12];
+            new SecureRandom().nextBytes(nonce);
+            WrappedKey wrapped = key.wrapKey(other, nonce);
+            
+            Key unwrapped = key.unwrapKey(KeyAlgorithm.ED25519, wrapped);
+            assertEquals(other.getJwkThumbprint(), unwrapped.getJwkThumbprint());
+        } catch (AskarException ex) {
+            fail(ex);
+        }
     }
 }
