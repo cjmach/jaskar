@@ -317,17 +317,19 @@ public class Session implements Closeable {
         Objects.requireNonNull(category);
         Objects.requireNonNull(name);
 
-        AskarCallback.Basic callback = new AskarCallback.Basic();
-        ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
-                EntryOperation.REMOVE, category, name, null, null, 0,
-                callback, callback.getId());
-        if (errorCode != ErrorCode.SUCCESS) {
-            throw new AskarException();
-        }
-        try {
-            callback.await();
-        } catch (InterruptedException ex) {
-            throw new AskarException(ex);
+        try (ByteBuffer.ByValue value = new ByteBuffer.ByValue()) {
+            AskarCallback.Basic callback = new AskarCallback.Basic();
+            ErrorCode errorCode = AskarLibrary.askar_session_update(handle,
+                    EntryOperation.REMOVE, category, name, value, null, 0,
+                    callback, callback.getId());
+            if (errorCode != ErrorCode.SUCCESS) {
+                throw new AskarException();
+            }
+            try {
+                callback.await();
+            } catch (InterruptedException ex) {
+                throw new AskarException(ex);
+            }
         }
     }
 
