@@ -388,16 +388,26 @@ public class Store implements Closeable {
      */
     public static String generateRawKey(String seed) throws AskarException {
         try (ByteBuffer.ByValue bufferSeed = new ByteBuffer.ByValue(seed)) {
-            PointerByReference out = new PointerByReference();
-            ErrorCode errorCode = AskarLibrary.askar_store_generate_raw_key(bufferSeed, out);
-            if (errorCode != ErrorCode.SUCCESS) {
-                throw new AskarException();
-            }
-            Pointer p = out.getValue();
-            String result = p.getString(0, AskarLibrary.DEFAULT_CHARSET.name());
-            Native.free(Pointer.nativeValue(p));
-            return result;
+            return generateRawKey(bufferSeed);
         }
+    }
+    
+    public static String generateRawKey() throws AskarException {
+        try (ByteBuffer.ByValue seed = new ByteBuffer.ByValue()) {
+            return generateRawKey(seed);
+        }
+    }
+    
+    private static String generateRawKey(ByteBuffer.ByValue seed) throws AskarException {
+        PointerByReference out = new PointerByReference();
+        ErrorCode errorCode = AskarLibrary.askar_store_generate_raw_key(seed, out);
+        if (errorCode != ErrorCode.SUCCESS) {
+            throw new AskarException();
+        }
+        Pointer p = out.getValue();
+        String result = p.getString(0, AskarLibrary.DEFAULT_CHARSET.name());
+        Native.free(Pointer.nativeValue(p));
+        return result;
     }
 
     /**

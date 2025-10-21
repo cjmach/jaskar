@@ -29,7 +29,7 @@ public class StoreTests {
     @Test
     public void givenOpenStore_whenInsertingAndFetchingKey_thenKeysAreEqual() {
         try {
-            String passKey = Store.generateRawKey("");
+            String passKey = Store.generateRawKey();
             Key keyPair = Key.generate(KeyAlgorithm.ED25519, KeyBackend.SOFTWARE, false);
             try (Store db = Store.provision("sqlite://:memory:", StoreKeyMethod.RAW, passKey, null, true); Session conn = db.openSession()) {
 
@@ -61,7 +61,7 @@ public class StoreTests {
     @Test
     public void givenOpenStore_whenCopyingToAnotherStore_thenCopiedKeysAreEqual() {
         try {
-            String passKey = Store.generateRawKey("");
+            String passKey = Store.generateRawKey();
             Key keyPair = Key.generate(KeyAlgorithm.ED25519, false);
             try (Store db = Store.provision("sqlite://:memory:", StoreKeyMethod.RAW, passKey, null, true); Session conn = db.openSession()) {
 
