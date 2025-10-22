@@ -16,8 +16,6 @@
 package pt.cjmach.jaskar;
 
 import java.security.SecureRandom;
-import java.util.Random;
-import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import pt.cjmach.jaskar.lib.AskarLibrary;
