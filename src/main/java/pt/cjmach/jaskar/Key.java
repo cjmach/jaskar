@@ -380,8 +380,20 @@ public class Key implements Closeable {
      * @throws AskarException 
      */
     public WrappedKey wrapKey(Key other, byte[] nonce) throws AskarException {
-        try (EncryptedBuffer out = new EncryptedBuffer(); ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce)) {
-            ErrorCode errorCode = AskarLibrary.askar_key_wrap_key(handle, other.handle, nonceBuffer, out);
+        try (ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce)) {
+            return wrapKey(other, nonceBuffer);
+        }
+    }
+    
+    public WrappedKey wrapKey(Key other) throws AskarException {
+        try (ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue()) {
+            return wrapKey(other, nonceBuffer);
+        }
+    }
+    
+    private WrappedKey wrapKey(Key other, ByteBuffer.ByValue nonce) throws AskarException {
+        try (EncryptedBuffer out = new EncryptedBuffer()) {
+            ErrorCode errorCode = AskarLibrary.askar_key_wrap_key(handle, other.handle, nonce, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
