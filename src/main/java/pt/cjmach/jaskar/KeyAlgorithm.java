@@ -22,63 +22,63 @@ package pt.cjmach.jaskar;
 public enum KeyAlgorithm {
 
     /**
-     *
+     * 128-bit AES-GCM.
      */
     AES_A128_GCM("a128gcm"),
     /**
-     *
+     * 256-bit AES-GCM.
      */
     AES_A256_GCM("a256gcm"),
     /**
-     *
+     * 128-bit AES-CBC with HMAC-256.
      */
     AES_A128_CBC_HS256("a128cbchs256"),
     /**
-     *
+     * 256-bit AES-CBC with HMAC-512.
      */
     AES_A256_CBC_HS512("a256cbchs512"),
     /**
-     *
+     * 128-bit AES Key Wrap.
      */
     AES_A128_KW("a128kw"),
     /**
-     *
+     * 256-bit AES Key Wrap.
      */
     AES_A256_KW("a256kw"),
     /**
-     *
+     * Bls12_381 G1 Curve.
      */
     BLS_12381_G1("bls12381g1"),
     /**
-     *
+     * Bls12_381 G2 Curve.
      */
     BLS_12381_G2("bls12381g2"),
     /**
-     *
+     * ChaCha20-Poly1305.
      */
     CHACHA20_C20P("c20p"),
     /**
-     *
+     * XChaCha20-Poly1305.
      */
     CHACHA20_XC20P("xc20p"),
     /**
-     *
+     * Ed25519 signing key.
      */
     ED25519("ed25519"),
     /**
-     *
+     * Curve25519 elliptic curve key exchange key.
      */
     X25519("x25519"),
     /**
-     *
+     * Koblitz 256 curve.
      */
     EC_SECP_256K1("k256"),
     /**
-     *
+     * NIST P-256 curve.
      */
     EC_SECP_256R1("p256"),
     /**
-     *
+     * NIST P-384 curve.
      */
     EC_SECP_384R1("p384");
 
