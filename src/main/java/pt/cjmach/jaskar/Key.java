@@ -63,6 +63,10 @@ public class Key implements Closeable {
             return out.getBytes();
         }
     }
+    
+    public byte[] aeadDecrypt(WrappedKey key, byte[] aad) throws AskarException {
+        return aeadDecrypt(key.getCiphertext(), key.getNonce(), key.getTag(), aad);
+    }
 
     /**
      * Perform AEAD message encryption with this encryption key.
@@ -73,13 +77,14 @@ public class Key implements Closeable {
      * @return
      * @throws AskarException 
      */
-    public byte[] aeadEncrypt(byte[] message, byte[] nonce, byte[] aad) throws AskarException {
+    public WrappedKey aeadEncrypt(byte[] message, byte[] nonce, byte[] aad) throws AskarException {
         try (EncryptedBuffer out = new EncryptedBuffer(); ByteBuffer.ByValue messageBuffer = new ByteBuffer.ByValue(message); ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce); ByteBuffer.ByValue aadBuffer = new ByteBuffer.ByValue(aad)) {
             ErrorCode errorCode = AskarLibrary.askar_key_aead_encrypt(handle, messageBuffer, nonceBuffer, aadBuffer, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
-            return out.buffer.getBytes();
+            WrappedKey wrapped = new WrappedKey(out);
+            return wrapped;
         }
     }
 
