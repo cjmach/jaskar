@@ -62,7 +62,7 @@ public class KeyTests {
         try (Key key = Key.generate(KeyAlgorithm.AES_A256_GCM, true); Key other = Key.generate(KeyAlgorithm.ED25519, true)) {
             byte[] nonce = new byte[12];
             new SecureRandom().nextBytes(nonce);
-            WrappedKey wrapped = key.wrapKey(other, nonce);
+            WrappedSecret wrapped = key.wrapKey(other, nonce);
             
             Key unwrapped = key.unwrapKey(KeyAlgorithm.ED25519, wrapped);
             assertEquals(other.getJwkThumbprint(), unwrapped.getJwkThumbprint());
