@@ -16,7 +16,8 @@
 package pt.cjmach.jaskar;
 
 /**
- *
+ * Supported key algorithms.
+ * 
  * @author cmachado
  */
 public enum KeyAlgorithm {
