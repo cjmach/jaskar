@@ -64,7 +64,7 @@ public class Key implements Closeable {
         }
     }
     
-    public byte[] aeadDecrypt(WrappedKey key, byte[] aad) throws AskarException {
+    public byte[] aeadDecrypt(WrappedSecret key, byte[] aad) throws AskarException {
         return aeadDecrypt(key.getCiphertext(), key.getNonce(), key.getTag(), aad);
     }
 
@@ -77,13 +77,13 @@ public class Key implements Closeable {
      * @return
      * @throws AskarException 
      */
-    public WrappedKey aeadEncrypt(byte[] message, byte[] nonce, byte[] aad) throws AskarException {
+    public WrappedSecret aeadEncrypt(byte[] message, byte[] nonce, byte[] aad) throws AskarException {
         try (EncryptedBuffer out = new EncryptedBuffer(); ByteBuffer.ByValue messageBuffer = new ByteBuffer.ByValue(message); ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce); ByteBuffer.ByValue aadBuffer = new ByteBuffer.ByValue(aad)) {
             ErrorCode errorCode = AskarLibrary.askar_key_aead_encrypt(handle, messageBuffer, nonceBuffer, aadBuffer, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
-            WrappedKey wrapped = new WrappedKey(out);
+            WrappedSecret wrapped = new WrappedSecret(out);
             return wrapped;
         }
     }
@@ -343,7 +343,7 @@ public class Key implements Closeable {
         }
     }
     
-    public Key unwrapKey(KeyAlgorithm algorithm, WrappedKey wrapped) throws AskarException {
+    public Key unwrapKey(KeyAlgorithm algorithm, WrappedSecret wrapped) throws AskarException {
         return unwrapKey(algorithm, wrapped.getCiphertext(), wrapped.getNonce(), wrapped.getTag());
     }
 
@@ -384,25 +384,25 @@ public class Key implements Closeable {
      * @return
      * @throws AskarException 
      */
-    public WrappedKey wrapKey(Key other, byte[] nonce) throws AskarException {
+    public WrappedSecret wrapKey(Key other, byte[] nonce) throws AskarException {
         try (ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce)) {
             return wrapKey(other, nonceBuffer);
         }
     }
     
-    public WrappedKey wrapKey(Key other) throws AskarException {
+    public WrappedSecret wrapKey(Key other) throws AskarException {
         try (ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue()) {
             return wrapKey(other, nonceBuffer);
         }
     }
     
-    private WrappedKey wrapKey(Key other, ByteBuffer.ByValue nonce) throws AskarException {
+    private WrappedSecret wrapKey(Key other, ByteBuffer.ByValue nonce) throws AskarException {
         try (EncryptedBuffer out = new EncryptedBuffer()) {
             ErrorCode errorCode = AskarLibrary.askar_key_wrap_key(handle, other.handle, nonce, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
-            WrappedKey key = new WrappedKey(out);
+            WrappedSecret key = new WrappedSecret(out);
             return key;
         }
     }
