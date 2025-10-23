@@ -78,8 +78,20 @@ public class Key implements Closeable {
      * @throws AskarException 
      */
     public WrappedSecret aeadEncrypt(byte[] message, byte[] nonce, byte[] aad) throws AskarException {
-        try (EncryptedBuffer out = new EncryptedBuffer(); ByteBuffer.ByValue messageBuffer = new ByteBuffer.ByValue(message); ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce); ByteBuffer.ByValue aadBuffer = new ByteBuffer.ByValue(aad)) {
-            ErrorCode errorCode = AskarLibrary.askar_key_aead_encrypt(handle, messageBuffer, nonceBuffer, aadBuffer, out);
+        try (ByteBuffer.ByValue nonceBuffer = new ByteBuffer.ByValue(nonce)) {
+            return aeadEncrypt(message, nonceBuffer, aad);
+        }
+    }
+    
+    public WrappedSecret aeadEncrypt(byte[] message, byte[] aad) throws AskarException {
+        try (ByteBuffer.ByValue nonce = new ByteBuffer.ByValue()) {
+            return aeadEncrypt(message, nonce, aad);
+        }
+    }
+    
+    private WrappedSecret aeadEncrypt(byte[] message, ByteBuffer.ByValue nonce, byte[] aad) throws AskarException {
+        try (EncryptedBuffer out = new EncryptedBuffer(); ByteBuffer.ByValue messageBuffer = new ByteBuffer.ByValue(message); ByteBuffer.ByValue aadBuffer = new ByteBuffer.ByValue(aad)) {
+            ErrorCode errorCode = AskarLibrary.askar_key_aead_encrypt(handle, messageBuffer, nonce, aadBuffer, out);
             if (errorCode != ErrorCode.SUCCESS) {
                 throw new AskarException();
             }
